@@ -17,7 +17,7 @@ obstacle_list = []               # list to store the obstacle points in order fo
 c2c_node_grid = [[float('inf')] * 2000 for _ in range(6000)]       # create a 2D array for storing cost to come
 tc_node_grid = [[float('inf')] * 2000 for _ in range(6000)]        # create a 2D array for storing cost to come
 closed_set = []               # set to store the value of visited and closed points                 
-closed_list = np.zeros((6000, 2000, 12))
+closed_list = np.zeros((6000, 2000))
 visited={}
 
 C = int(input("Enter the clearance from the obstacle in mm: "))     # Get clearance from the user
@@ -274,22 +274,127 @@ hq.heapify(open_list)                      # covers list to heapq data type
 while(open_list):
     node = hq.heappop(open_list)       # pop the node with lowest cost to come
     closed_set.append(node[4])            # add the node coordinates to closed set
-    closed_list[int(node[4][0]), int(node[4][1]), int(node[5]/30)] = 1         # add the node to the closed list
+    closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
     visited_node(node)                 # add the node to the visited list
     index = node[2]                    # store the index of the current node
     parent_index = node[3]             # store the parent index list of current node
+
     node_dist = math.sqrt((node[4][0]-x_goal)**2 + (node[4][1]-y_goal)**2)     # calculate the distance between the current node and goal node
-    if node_dist<100:    # if the node is goal position, exit the loop
+    if node_dist < 50:    # if the node is goal position, exit the loop
         print("Goal reached")
         break
 
     point, new_heading, tc, c2c = action_1(node)
-    print(point)
-    print(new_heading)
-    print(tc)
-    print(c2c)
-    break
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
 
+    point, new_heading, tc, c2c = action_2(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+
+    point, new_heading, tc, c2c = action_3(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+
+    point, new_heading, tc, c2c = action_4(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+
+    point, new_heading, tc, c2c = action_5(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+
+    point, new_heading, tc, c2c = action_6(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+
+    point, new_heading, tc, c2c = action_7(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+
+    
+    point, new_heading, tc, c2c = action_8(node)
+    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+        x = point[0]                                                    # get the x coordinate of the new node
+        y = point[1]                                                    # get the y coordinate of the new node
+        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+            new_index+=1                                                # increment the index
+            tc_node_grid[x][y] = tc                                     # Update the new total cost
+            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
+            hq.heappush(open_list, new_node)                            # push the new node to the open list
+    
+print(node[4])
 
 # Mark the obstacle points in the frame, including points after bloating
 for point in obstacle_list:                            # loop to mark the obstacle points
@@ -301,6 +406,7 @@ cv2.rectangle(canvas, (2500, 1000), (2750, 0), (0 , 0, 255), -1)     # draw the 
 cv2.circle(canvas,(4200, 1200), 600, (0,0,255),-1)            # draw the circle shaped obstacle
 cv2.circle(canvas,(x_start, y_start), 30, (0,0,255), -1)             # mark the goal point with red color
 cv2.circle(canvas,(x_goal, y_goal), 30, (0,0,255), -1)             # mark the goal point with red color
+
 
 canvas_resized = cv2.resize(canvas, (1500, 500))    
 canvas_resized = cv2.flip(canvas_resized, 0)
