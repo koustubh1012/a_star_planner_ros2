@@ -20,7 +20,7 @@ closed_set = []               # set to store the value of visited and closed poi
 closed_list = np.zeros((6000, 2000, 12))
 visited={}
 
-C = int(input("Enter the clearance from the obstacle in pixel: "))     # Get clearance from the user
+C = int(input("Enter the clearance from the obstacle in mm: "))     # Get clearance from the user
 
 x_goal = 0  # Initialize the goal x coordinate
 y_goal = 0  # Initialize the goal y coordinate
@@ -31,8 +31,11 @@ y_start = 0 # Initialize the start y coordinate
 def visited_node(node):
     visited.update({node[2]:node[4]})
 
-R = 220
-T = C + R
+R = 66/2                                                  # Robot wheel radius
+r = 220                                                   # Robot radius
+L = 287                                                   # Robot wheel track
+
+T = C + r
 
 '''
 Loop to define the obstacle points in the map
