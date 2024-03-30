@@ -408,8 +408,56 @@ cv2.circle(canvas,(x_start, y_start), 30, (0,0,255), -1)             # mark the 
 cv2.circle(canvas,(x_goal, y_goal), 30, (0,0,255), -1)             # mark the goal point with red color
 
 
-canvas_resized = cv2.resize(canvas, (1500, 500))    
-canvas_resized = cv2.flip(canvas_resized, 0)
-cv2.imshow("canvas", canvas_resized)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+path = node[3]            # Get the parent node list 
+counter = 0               # counter to count the frames to write on video
+
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 format
+video_writer = cv2.VideoWriter('output.mp4', fourcc, 60, (1200, 500)) # Video writer object
+
+'''
+Loop to mark the explored nodes in order on the frame
+'''
+print("Exploring map")
+
+for node in closed_set:                                                  # loop to mark the explored nodes
+    canvas[node[1], node[0]] = [0, 255, 0]                               # mark the explored nodes with green color
+    counter +=1                                                          # increment the counter
+    if counter%500 == 0 or counter == 0:                                 # check if the counter is divisible by 500
+        canvas_resized = cv2.resize(canvas, (1500, 500))    
+        canvas_flipped = cv2.flip(canvas_resized, 0)
+        canvas_flipped = cv2.flip(canvas,0)                              # flip the frame
+        canvas_flipped_uint8 = cv2.convertScaleAbs(canvas_flipped)       # convert the frame to uint8
+        # cv2.imshow('window',canvas_flipped_uint8)
+        # cv2.waitKey(1)
+        video_writer.write(canvas_flipped_uint8)                         # write the frame to video
+
+'''
+Loop to mark the path created
+'''
+print("Backtracking")
+
+for index in path:                                                        # loop to mark the path
+    coord=visited[index]                                                  # get the coordinates of the node
+    cv2.circle(canvas, (coord[0],coord[1]), 1, [0,0,0], -1)               # mark the path with black color
+
+    canvas_flipped = cv2.flip(canvas,0)                                   # flip the frame
+    canvas_flipped_uint8 = cv2.convertScaleAbs(canvas_flipped)            # convert the frame to uint8
+    # cv2.imshow('window',canvas_flipped_uint8)
+    # cv2.waitKey(1)
+
+    video_writer.write(canvas_flipped_uint8)                              # write the frame to video
+
+
+
+'''
+Loop to add some additional frames at the end of the video
+'''
+for i in range(150):
+    video_writer.write(canvas_flipped_uint8)                               # write the frame to video
+    
+print("Video Processed")                                                   # print message
+# cv2.waitKey(0)
+video_writer.release()                                                     # release the video writer
+# cv2.imshow("canvas", canvas_resized)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
