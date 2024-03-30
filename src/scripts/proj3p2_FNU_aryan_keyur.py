@@ -22,6 +22,13 @@ visited={}
 
 C = int(input("Enter the clearance from the obstacle in mm: "))     # Get clearance from the user
 
+R = 66/2                                                  # Robot wheel radius
+r = 220                                                   # Robot radius
+L = 287                                                   # Robot wheel track
+T = C + r                                                 # Total clearance
+t = 1
+
+
 x_goal = 0  # Initialize the goal x coordinate
 y_goal = 0  # Initialize the goal y coordinate
 x_start = 0 # Initialize the start x coordinate
@@ -31,11 +38,24 @@ y_start = 0 # Initialize the start y coordinate
 def visited_node(node):
     visited.update({node[2]:node[4]})
 
-R = 66/2                                                  # Robot wheel radius
-r = 220                                                   # Robot radius
-L = 287                                                   # Robot wheel track
 
-T = C + r
+def action_1(node):
+    ul = 0
+    ur = 2*math.pi*rpm1/60
+    new_heading = node[5] + np.rad2deg(((R/L)*(ul - ur)*t))        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    print("X vel: ", x_vel)
+    print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1]+L                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
 
 '''
 Loop to define the obstacle points in the map
@@ -76,7 +96,7 @@ for y in range(2000):                                       # loop to define the
             c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
             tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
          
-        # Points int the Circle shaped obstacle
+        # Points in the Circle shaped obstacle
         elif ((x-4200)**2 + (y-1200)**2 <= (600+T)**2):      # points in the first rectangle of Concave shaped obstacle
             obstacle_set.add((x,y))                        # add the points to the obstacle set
             obstacle_list.append((x,y))                    # add the points to the obstacle list
@@ -122,8 +142,28 @@ while not valid_rpm:
 start_time = time.time()  
 new_index = 1         
 open_list = []
-# hq.heappush(open_list,initial_node)        # Push initial node to the list
-# hq.heapify(open_list)                      # covers list to heapq data type
+hq.heappush(open_list,initial_node)        # Push initial node to the list
+hq.heapify(open_list)                      # covers list to heapq data type
+
+while(open_list):
+    node = hq.heappop(open_list)       # pop the node with lowest cost to come
+    closed_set.append(node[4])            # add the node coordinates to closed set
+    closed_list[int(node[4][0]), int(node[4][1]), int(node[5]/30)] = 1         # add the node to the closed list
+    visited_node(node)                 # add the node to the visited list
+    index = node[2]                    # store the index of the current node
+    parent_index = node[3]             # store the parent index list of current node
+    node_dist = math.sqrt((node[4][0]-x_goal)**2 + (node[4][1]-y_goal)**2)     # calculate the distance between the current node and goal node
+    if node_dist<100:    # if the node is goal position, exit the loop
+        print("Goal reached")
+        break
+
+    point, new_heading, tc, c2c = action_1(node)
+    print(point)
+    print(new_heading)
+    print(tc)
+    print(c2c)
+    break
+
 
 # Mark the obstacle points in the frame, including points after bloating
 for point in obstacle_list:                            # loop to mark the obstacle points
