@@ -42,16 +42,142 @@ def visited_node(node):
 def action_1(node):
     ul = 0
     ur = 2*math.pi*rpm1/60
-    new_heading = node[5] + np.rad2deg(((R/L)*(ul - ur)*t))        # get the current heading of the robot
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    print("X vel: ", x_vel)
-    print("Y vel: ", y_vel)
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
     y = round(y)
-    c2c = node[1]+L                                  # calculate the cost to come
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_2(node):
+    ul = 2*math.pi*rpm1/60
+    ur = 0
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_3(node):
+    ul = 2*math.pi*rpm1/60
+    ur = 2*math.pi*rpm1/60
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_4(node):
+    ul = 0
+    ur = 2*math.pi*rpm2/60
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_5(node):
+    ul = 2*math.pi*rpm2/60
+    ur = 0
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_6(node):
+    ul = 2*math.pi*rpm2/60
+    ur = 2*math.pi*rpm2/60
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_7(node):
+    ul = 2*math.pi*rpm1/60
+    ur = 2*math.pi*rpm2/60
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
+    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
+    tc = c2c + c2g                                   # calculate the total cost
+    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+
+def action_8(node):
+    ul = 2*math.pi*rpm2/60
+    ur = 2*math.pi*rpm1/60
+    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
+    x = node[4][0] + x_vel*t # calculate the new x coordinate
+    y = node[4][1] + y_vel*t # calculate the new y coordinate
+    x = round(x) 
+    y = round(y)
+    c2c = node[1] + math.sqrt(x_vel**2 + y_vel**2)                                  # calculate the cost to come
     c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
     tc = c2c + c2g                                   # calculate the total cost
     return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
