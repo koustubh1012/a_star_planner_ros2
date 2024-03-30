@@ -1,0 +1,170 @@
+[1.019s] Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3 -DCMAKE_INSTALL_PREFIX=/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3
+[3.336s] -- The C compiler identification is GNU 9.4.0
+[4.545s] -- The CXX compiler identification is GNU 9.4.0
+[4.607s] -- Check for working C compiler: /usr/bin/cc
+[4.792s] -- Check for working C compiler: /usr/bin/cc -- works
+[4.810s] -- Detecting C compiler ABI info
+[4.974s] -- Detecting C compiler ABI info - done
+[4.992s] -- Detecting C compile features
+[4.993s] -- Detecting C compile features - done
+[4.999s] -- Check for working CXX compiler: /usr/bin/c++
+[5.095s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[5.096s] -- Detecting CXX compiler ABI info
+[5.195s] -- Detecting CXX compiler ABI info - done
+[5.208s] -- Detecting CXX compile features
+[5.208s] -- Detecting CXX compile features - done
+[5.359s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[5.544s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[5.544s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[6.375s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+[6.408s] -- Checking for module 'bullet>=2.82'
+[6.614s] --   Found bullet, version 2.88
+[7.138s] -- Found ccd: /usr/include (found suitable version "2.0", minimum required is "2.0") 
+[7.519s] -- Found fcl: /usr/include (found suitable version "0.5.0", minimum required is "0.3.2") 
+[7.765s] -- Found assimp: /usr/include (found version "5.0.0") 
+[8.102s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[9.091s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[9.283s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found version "3.6.1") 
+[9.363s] -- Looking for ignition-math6 -- found version 6.15.1
+[9.441s] -- Searching for dependencies of ignition-math6
+[9.463s] -- Looking for OGRE...
+[9.465s] -- OGRE_PREFIX_WATCH changed.
+[9.479s] -- Checking for module 'OGRE'
+[9.506s] --   Found OGRE, version 1.9.0
+[9.585s] -- Found Ogre Ghadamon (1.9.0)
+[9.622s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[9.638s] -- Looking for OGRE_Paging...
+[9.650s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[9.651s] -- Looking for OGRE_Terrain...
+[9.663s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[9.663s] -- Looking for OGRE_Property...
+[9.676s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[9.676s] -- Looking for OGRE_RTShaderSystem...
+[9.688s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[9.688s] -- Looking for OGRE_Volume...
+[9.701s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[9.701s] -- Looking for OGRE_Overlay...
+[9.713s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[9.980s] -- Looking for ignition-math6 -- found version 6.15.1
+[9.995s] -- Looking for ignition-transport8 -- found version 8.3.0
+[9.995s] -- Searching for dependencies of ignition-transport8
+[10.037s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found suitable version "3.6.1", minimum required is "3") 
+[10.056s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[10.062s] -- Checking for module 'libzmq >= 4'
+[10.145s] --   Found libzmq , version 4.3.2
+[10.211s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[10.227s] -- Checking for module 'uuid'
+[10.262s] --   Found uuid, version 2.34.0
+[10.345s] -- Found UUID: TRUE  
+[10.353s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[10.354s] -- Searching for dependencies of ignition-msgs5
+[10.380s] -- Looking for ignition-math6 -- found version 6.15.1
+[10.391s] -- Checking for module 'tinyxml2'
+[10.423s] --   Found tinyxml2, version 6.2.0
+[10.501s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[10.526s] -- Looking for ignition-common3 -- found version 3.14.2
+[10.527s] -- Searching for dependencies of ignition-common3
+[10.540s] -- Looking for dlfcn.h - found
+[10.544s] -- Looking for libdl - found
+[10.549s] -- Found DL: TRUE  
+[10.580s] -- Searching for <ignition-common3> component [graphics]
+[10.590s] -- Looking for ignition-common3-graphics -- found version 3.14.2
+[10.591s] -- Searching for dependencies of ignition-common3-graphics
+[10.591s] -- Looking for ignition-math6 -- found version 6.15.1
+[10.611s] -- Looking for ignition-fuel_tools4 -- found version 4.6.0
+[10.611s] -- Searching for dependencies of ignition-fuel_tools4
+[10.754s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.68.0")  
+[10.807s] -- Checking for module 'jsoncpp'
+[10.866s] --   Found jsoncpp, version 1.7.4
+[10.932s] -- Found JSONCPP: TRUE  
+[10.964s] -- Checking for module 'libzip'
+[11.010s] --   Found libzip, version 1.5.1
+[11.074s] -- Found ZIP: TRUE  
+[11.074s] -- Looking for ignition-common3 -- found version 3.14.2
+[11.074s] -- Looking for ignition-math6 -- found version 6.15.1
+[11.075s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[11.114s] -- Found gazebo_ros_pkgs: 3.5.2 (/opt/ros/galactic/share/gazebo_ros_pkgs/cmake)
+[11.145s] -- Found geometry_msgs: 2.2.4 (/opt/ros/galactic/share/geometry_msgs/cmake)
+[11.542s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[11.685s] -- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)
+[12.073s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[12.164s] -- Found FastRTPS: /opt/ros/galactic/include  
+[12.597s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[12.801s] -- Found nav_msgs: 2.2.4 (/opt/ros/galactic/share/nav_msgs/cmake)
+[12.918s] -- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)
+[13.521s] -- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)
+[13.548s] -- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)
+[13.722s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[13.724s] -- Found Threads: TRUE  
+[14.301s] -- Found sensor_msgs: 2.2.4 (/opt/ros/galactic/share/sensor_msgs/cmake)
+[14.460s] -- Found tf2: 0.17.5 (/opt/ros/galactic/share/tf2/cmake)
+[14.724s] -- Configuring done
+[14.807s] -- Generating done
+[14.815s] -- Build files have been written to: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3
+[14.832s] Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3 -DCMAKE_INSTALL_PREFIX=/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3
+[14.837s] Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --build /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3 -- -j8 -l8
+[14.896s] [35m[1mScanning dependencies of target turtlebot3_drive[0m
+[16.355s] [ 50%] [32mBuilding CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o[0m
+[28.075s] [100%] [32m[1mLinking CXX executable turtlebot3_drive[0m
+[30.143s] [100%] Built target turtlebot3_drive
+[30.158s] Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --build /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3 -- -j8 -l8
+[30.209s] Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --install /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3
+[30.220s] -- Install configuration: ""
+[30.220s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/turtlebot3_project3/turtlebot3_drive
+[30.225s] -- Set runtime path of "/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/turtlebot3_project3/turtlebot3_drive" to ""
+[30.225s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//launch
+[30.225s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//launch/competition_world.launch.py
+[30.225s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//launch/spawn_turtlebot3.launch.py
+[30.225s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//launch/empty_world.launch.py
+[30.225s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//launch/robot_state_publisher.launch.py
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/model.config
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_base.dae
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/lds.dae
+[30.226s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/burger_base.dae
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/waffle_pi_base.dae
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/tire.dae
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_common/meshes/r200.dae
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.sdf
+[30.227s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model.config
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_waffle/model-1_4.sdf
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.sdf
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model.config
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/model-1_4.sdf
+[30.228s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/wall.dae
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//models/turtlebot3_world/meshes/hexagon.dae
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//rviz
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//rviz/tb3_gazebo.rviz
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//urdf
+[30.229s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//urdf/common_properties.urdf
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//urdf/turtlebot3_waffle.urdf
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//worlds
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//worlds/competition_world.world
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3//worlds/empty_world.world
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/include/
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/include//turtlebot3_project3
+[30.230s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/include//turtlebot3_project3/turtlebot3_drive.hpp
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/turtlebot3_project3/teleop.py
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/ament_index/resource_index/package_run_dependencies/turtlebot3_project3
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/ament_index/resource_index/parent_prefix_path/turtlebot3_project3
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.sh
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/environment/ament_prefix_path.dsv
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.sh
+[30.231s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/environment/path.dsv
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.bash
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.sh
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.zsh
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/local_setup.dsv
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/ament_index/resource_index/packages/turtlebot3_project3
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_include_directories-extras.cmake
+[30.232s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/cmake/ament_cmake_export_dependencies-extras.cmake
+[30.233s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config.cmake
+[30.233s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/cmake/turtlebot3_project3Config-version.cmake
+[30.233s] -- Installing: /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.xml
+[30.235s] Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --install /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3

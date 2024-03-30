@@ -1,0 +1,147 @@
+[12.952s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[12.952s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f06a43a54f0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=8, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f06a43a54f0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f06a4361b80>)
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[14.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[14.927s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star'
+[14.927s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[14.927s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[14.927s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[14.927s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[14.928s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[14.928s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[14.928s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[14.928s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[14.928s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[15.009s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[15.010s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[15.010s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[15.010s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[15.010s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[15.010s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[15.011s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[15.011s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[15.011s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[15.012s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[15.012s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[15.012s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[15.012s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[15.012s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[15.013s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[15.013s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[15.013s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[15.013s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[15.014s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[15.015s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[15.015s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[15.015s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[15.015s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extensions ['ignore', 'ignore_ament_install']
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extension 'ignore'
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extension 'ignore_ament_install'
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extensions ['colcon_pkg']
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extension 'colcon_pkg'
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extensions ['colcon_meta']
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extension 'colcon_meta'
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extensions ['ros']
+[15.016s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_project3) by extension 'ros'
+[15.032s] DEBUG:colcon.colcon_core.package_identification:Package 'src/turtlebot3_project3' with type 'ros.ament_cmake' and name 'turtlebot3_project3'
+[15.032s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[15.032s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[15.032s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[15.032s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[15.032s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[15.982s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[15.982s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[16.408s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 10 installed packages in /home/keyur/ariac_ws/install
+[16.524s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 10 installed packages in /home/keyur/enpm663_ws/install
+[16.638s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 8 installed packages in /home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install
+[16.752s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 4 installed packages in /home/keyur/empm809y_cpp/Cpp_projects/ROS2learn/rosprac809_ws/install
+[16.865s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/keyur/ros809_ws/install
+[16.977s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 389 installed packages in /opt/ros/galactic
+[16.979s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_args' from command line to 'None'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_target' from command line to 'None'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_clean_cache' from command line to 'False'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_clean_first' from command line to 'False'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'cmake_force_configure' from command line to 'False'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'ament_cmake_args' from command line to 'None'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'catkin_cmake_args' from command line to 'None'
+[19.251s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_project3' build argument 'catkin_skip_building_tests' from command line to 'False'
+[19.251s] DEBUG:colcon.colcon_core.verb:Building package 'turtlebot3_project3' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3', 'merge_install': False, 'path': '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3', 'symlink_install': False, 'test_result_base': None}
+[19.365s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[19.479s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[19.479s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3' with build type 'ament_cmake'
+[19.479s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3'
+[19.645s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[19.645s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[19.645s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[20.499s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3 -DCMAKE_INSTALL_PREFIX=/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3
+[34.311s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/src/turtlebot3_project3 -DCMAKE_INSTALL_PREFIX=/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3
+[34.316s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --build /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3 -- -j8 -l8
+[49.637s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --build /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3 -- -j8 -l8
+[49.688s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --install /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3
+[49.714s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_project3)
+[49.714s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/keyur/ariac_ws/install/ariac_gui:/home/keyur/enpm663_ws/install/exercise1py:/home/keyur/empm809y_cpp/Cpp_projects/RWA3-Group17/rwa3_ws/install/ros2_aruco:/opt/ros/galactic /usr/bin/cmake --install /home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/build/turtlebot3_project3
+[49.924s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3' for CMake module files
+[49.927s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3' for CMake config files
+[49.930s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_project3', 'cmake_prefix_path')
+[50.071s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.ps1'
+[50.116s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.dsv'
+[50.127s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.sh'
+[50.130s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib'
+[50.130s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/bin'
+[50.131s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/pkgconfig/turtlebot3_project3.pc'
+[50.131s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/python3.8/site-packages'
+[50.132s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/bin'
+[50.273s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.ps1'
+[50.275s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv'
+[50.276s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.sh'
+[50.277s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.bash'
+[50.328s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.zsh'
+[50.344s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/colcon-core/packages/turtlebot3_project3)
+[50.520s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_project3)
+[50.641s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3' for CMake module files
+[50.642s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3' for CMake config files
+[50.643s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_project3', 'cmake_prefix_path')
+[50.764s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.ps1'
+[50.765s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.dsv'
+[50.765s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/hook/cmake_prefix_path.sh'
+[50.766s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib'
+[50.766s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/bin'
+[50.766s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/pkgconfig/turtlebot3_project3.pc'
+[50.766s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/lib/python3.8/site-packages'
+[50.766s] Level 1:colcon.colcon_core.environment:checking '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/bin'
+[50.889s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.ps1'
+[50.889s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.dsv'
+[50.890s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.sh'
+[50.890s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.bash'
+[50.891s] INFO:colcon.colcon_core.shell:Creating package script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/turtlebot3_project3/package.zsh'
+[50.891s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/turtlebot3_project3/share/colcon-core/packages/turtlebot3_project3)
+[50.891s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[50.892s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[50.892s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[50.892s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[51.060s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[51.060s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[51.060s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[51.095s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[51.228s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/local_setup.ps1'
+[51.229s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/_local_setup_util_ps1.py'
+[51.231s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/setup.ps1'
+[51.355s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/local_setup.sh'
+[51.356s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/_local_setup_util_sh.py'
+[51.357s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/setup.sh'
+[51.479s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/local_setup.bash'
+[51.480s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/setup.bash'
+[51.603s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/local_setup.zsh'
+[51.604s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/keyur/enpm661/Path_Planning_proj3_ph2/Path-Planning-Project3-ph2-A-Star/install/setup.zsh'
