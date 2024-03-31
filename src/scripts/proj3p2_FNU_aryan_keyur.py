@@ -17,7 +17,7 @@ obstacle_list = []               # list to store the obstacle points in order fo
 c2c_node_grid = [[float('inf')] * 2000 for _ in range(6000)]       # create a 2D array for storing cost to come
 tc_node_grid = [[float('inf')] * 2000 for _ in range(6000)]        # create a 2D array for storing cost to come
 closed_set = []               # set to store the value of visited and closed points                 
-closed_list = np.zeros((6000, 2000))
+closed_list = np.zeros((2000, 6000))
 visited={}
 
 C = int(input("Enter the clearance from the obstacle in mm: "))     # Get clearance from the user
@@ -274,7 +274,7 @@ hq.heapify(open_list)                      # covers list to heapq data type
 while(open_list):
     node = hq.heappop(open_list)       # pop the node with lowest cost to come
     closed_set.append(node[4])            # add the node coordinates to closed set
-    closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
+    # closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
     visited_node(node)                 # add the node to the visited list
     index = node[2]                    # store the index of the current node
     parent_index = node[3]             # store the parent index list of current node
@@ -285,7 +285,7 @@ while(open_list):
         break
 
     point, new_heading, tc, c2c = action_1(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -298,7 +298,7 @@ while(open_list):
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
     point, new_heading, tc, c2c = action_2(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -312,7 +312,7 @@ while(open_list):
 
 
     point, new_heading, tc, c2c = action_3(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -326,7 +326,7 @@ while(open_list):
 
 
     point, new_heading, tc, c2c = action_4(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -340,7 +340,7 @@ while(open_list):
 
 
     point, new_heading, tc, c2c = action_5(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -354,7 +354,7 @@ while(open_list):
 
 
     point, new_heading, tc, c2c = action_6(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -368,7 +368,7 @@ while(open_list):
 
 
     point, new_heading, tc, c2c = action_7(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -382,7 +382,7 @@ while(open_list):
 
     
     point, new_heading, tc, c2c = action_8(node)
-    if point not in obstacle_set and closed_list[int(point[0]), int(point[1])] == 0:           # check if the new node is in the obstacle set or visited list
+    if point not in obstacle_set and point not in closed_set:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
         if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
@@ -394,7 +394,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
     
-print(node[4])
+# print(node[4])
 
 # Mark the obstacle points in the frame, including points after bloating
 for point in obstacle_list:                            # loop to mark the obstacle points
@@ -419,10 +419,12 @@ Loop to mark the explored nodes in order on the frame
 '''
 print("Exploring map")
 
+
+print(closed_set)
 for node in closed_set:                                                  # loop to mark the explored nodes
     canvas[node[1], node[0]] = [0, 255, 0]                               # mark the explored nodes with green color
     counter +=1                                                          # increment the counter
-    if counter%500 == 0 or counter == 0:                                 # check if the counter is divisible by 500
+    if counter%1 == 0 or counter == 0:                                 # check if the counter is divisible by 500
         canvas_resized = cv2.resize(canvas, (1500, 500))    
         canvas_flipped = cv2.flip(canvas_resized, 0)
         canvas_flipped = cv2.flip(canvas,0)                              # flip the frame
@@ -439,8 +441,8 @@ print("Backtracking")
 for index in path:                                                        # loop to mark the path
     coord=visited[index]                                                  # get the coordinates of the node
     cv2.circle(canvas, (coord[0],coord[1]), 1, [0,0,0], -1)               # mark the path with black color
-
-    canvas_flipped = cv2.flip(canvas,0)                                   # flip the frame
+    canvas_resized = cv2.resize(canvas, (1500, 500))    
+    canvas_flipped = cv2.flip(canvas_resized, 0)
     canvas_flipped_uint8 = cv2.convertScaleAbs(canvas_flipped)            # convert the frame to uint8
     # cv2.imshow('window',canvas_flipped_uint8)
     # cv2.waitKey(1)
@@ -456,8 +458,8 @@ for i in range(150):
     video_writer.write(canvas_flipped_uint8)                               # write the frame to video
     
 print("Video Processed")                                                   # print message
-# cv2.waitKey(0)
+
 video_writer.release()                                                     # release the video writer
-# cv2.imshow("canvas", canvas_resized)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+cv2.imshow("canvas", canvas_flipped_uint8)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
