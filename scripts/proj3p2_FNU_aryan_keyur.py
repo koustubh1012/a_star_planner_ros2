@@ -403,7 +403,7 @@ path = node[3]            # Get the parent node list
 counter = 0               # counter to count the frames to write on video
 
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 format
-video_writer = cv2.VideoWriter('output.mp4', fourcc, 60, (600, 200)) # Video writer object
+video_writer = cv2.VideoWriter('output/output.mp4', fourcc, 60, (600, 200)) # Video writer object
 
 '''
 Loop to mark the explored nodes in order on the frame
