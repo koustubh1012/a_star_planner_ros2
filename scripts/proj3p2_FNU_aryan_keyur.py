@@ -1,6 +1,6 @@
-#ENPM 661: Planning for Robotics
-#Project 3 - Phase 2
-#authors: Keyur Borad, Aryan Mishra, FNU Koustubh
+# ENPM 661: Planning for Robotics
+# Project 3 - Phase 2
+# authors: Keyur Borad, Aryan Mishra, FNU Koustubh
 
 # import libraries
 
@@ -28,7 +28,7 @@ R = 66/20                                                  # Robot wheel radius
 r = 22                                                   # Robot radius
 L = 28.7                                                   # Robot wheel track
 T = C + r                                                 # Total clearance
-t = 1
+t = 2
 
 
 x_goal = 0  # Initialize the goal x coordinate
@@ -237,8 +237,8 @@ valid_start = False                                                             
 while not valid_start:                                                          # loop to check if the start point is valid
         start = input("Enter the start coordinates and orientation as (x, y, theta): ")                         # get the start coordinate and orientaion from the user
         [x_start, y_start, theta_start] = [int(i) for i in start.split()]
-        x_start += 50
-        y_start += 100
+        # x_start += 50
+        # y_start += 100
         if (x_start, y_start) in obstacle_set:                                  # check if the start point is in the obstacle set
             print("Invalid coordinates, Enter again")                         # print error message
         else:
@@ -250,8 +250,8 @@ valid_goal = False                                                              
 while not valid_goal:
         goal = input("Enter the goal coordinates as (x, y): ")                         # get the start coordinate and orientaion from the user
         [x_goal, y_goal] = [int(i) for i in goal.split()]
-        x_goal += 50
-        y_goal += 100
+        # x_goal += 50
+        # y_goal += 100
         if (x_goal, y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
             print("Invalid coordinates, Enter again")                        # print error message
         else:
@@ -277,7 +277,7 @@ hq.heapify(open_list)                      # covers list to heapq data type
 while(open_list):
     node = hq.heappop(open_list)       # pop the node with lowest cost to come
     closed_set.append(node[4])            # add the node coordinates to closed set
-    print(node[4])
+    # print(node[4])
     # closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
     visited_node(node)                 # add the node to the visited list
     index = node[2]                    # store the index of the current node
@@ -289,6 +289,7 @@ while(open_list):
         break
 
     point, new_heading, tc, c2c = action_1(node)
+    # print("Action 1", point, new_heading, tc, c2c)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
@@ -302,6 +303,7 @@ while(open_list):
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
     point, new_heading, tc, c2c = action_2(node)
+    # print("Action 2", point, new_heading, tc, c2c)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
         y = point[1]                                                    # get the y coordinate of the new node
@@ -314,7 +316,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-
+    # print("Action 3", point, new_heading, tc, c2c)
     point, new_heading, tc, c2c = action_3(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -328,7 +330,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-
+    # print("Action 4", point, new_heading, tc, c2c)
     point, new_heading, tc, c2c = action_4(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -342,7 +344,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-
+    # print("Action 5", point, new_heading, tc, c2c)
     point, new_heading, tc, c2c = action_5(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -356,7 +358,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-
+    # print("Action 6", point, new_heading, tc, c2c)
     point, new_heading, tc, c2c = action_6(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -370,7 +372,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-
+    # print("Action 7", point, new_heading, tc, c2c)
     point, new_heading, tc, c2c = action_7(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -384,7 +386,7 @@ while(open_list):
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-    
+    # print("Action 8", point, new_heading, tc, c2c)   
     point, new_heading, tc, c2c = action_8(node)
     if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
         x = point[0]                                                    # get the x coordinate of the new node
@@ -397,8 +399,9 @@ while(open_list):
             c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
             new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
             hq.heappush(open_list, new_node)                            # push the new node to the open list
+    # break
     
-print(node[4][0]-50, node[4][1]-100)
+print(node[4][0], node[4][1])
 
 # # Mark the obstacle points in the frame, including points after bloating
 for point in obstacle_list:                            # loop to mark the obstacle points
@@ -408,9 +411,9 @@ for point in obstacle_list:                            # loop to mark the obstac
 cv2.rectangle(canvas, (150, 200), (175, 100), (0 , 0, 255), -1)   # draw the first rectangle
 cv2.rectangle(canvas, (250, 100), (275, 0), (0 , 0, 255), -1)     # draw the second rectangle
 cv2.circle(canvas,(420, 120), 60, (0,0,255),-1)            # draw the circle shaped obstacle
-cv2.circle(canvas,(x_start, y_start), 10, (0,0,255), -1)             # mark the goal point with red color
-cv2.circle(canvas,(x_goal, y_goal), 10, (255,0,255), -1)             # mark the goal point with red color
-cv2.circle(canvas,node[4] , 10, (0,255,255), -1)             # mark the goal point with red color
+cv2.circle(canvas,(x_start, y_start), 5, (0,0,255), -1)             # mark the goal point with red color
+cv2.circle(canvas,(x_goal, y_goal), 5, (255,0,255), -1)             # mark the goal point with red color
+cv2.circle(canvas, node[4] , 5, (0,255,255), -1)             # mark the goal point with red color
 
 
 path = node[3]            # Get the parent node list 
@@ -429,9 +432,9 @@ print("Exploring map")
 for node in closed_set:                                                  # loop to mark the explored nodes
 
     # canvas[node[1], node[0]] = [0, 255, 0]                               # mark the explored nodes with green color
-    cv2.circle(canvas, node, 5, (0,255,0), -1)             # mark the goal point with red color
+    cv2.circle(canvas, node, 1, (0,255,0), -1)             # mark the goal point with red color
     counter +=1                                                          # increment the counter
-    if counter%1 == 0 or counter == 0:                                 # check if the counter is divisible by 500
+    if counter%500 == 0 or counter == 0:                                 # check if the counter is divisible by 500
         canvas_resized = cv2.resize(canvas, (1500, 500))    
         canvas_flipped = cv2.flip(canvas_resized, 0)
         canvas_flipped = cv2.flip(canvas,0)                              # flip the frame
@@ -467,6 +470,10 @@ for i in range(150):
 print("Video Processed")                                                   # print message
 
 video_writer.release()                                                     # release the video writer
+
+end_time = time.time()                                                     # get the end time of the program
+print(f"The runtime of my program is {end_time - start_time} seconds.")    # print the runtime of the program
+
 cv2.imshow("canvas", canvas_flipped_uint8)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
