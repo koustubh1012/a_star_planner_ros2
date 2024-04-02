@@ -47,8 +47,6 @@ def action_1(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -65,8 +63,6 @@ def action_2(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -83,8 +79,6 @@ def action_3(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -101,8 +95,6 @@ def action_4(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -119,8 +111,6 @@ def action_5(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -137,8 +127,6 @@ def action_6(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -155,8 +143,6 @@ def action_7(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -173,8 +159,6 @@ def action_8(node):
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    # print("X vel: ", x_vel)
-    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -237,8 +221,8 @@ valid_start = False                                                             
 while not valid_start:                                                          # loop to check if the start point is valid
         start = input("Enter the start coordinates and orientation as (x, y, theta): ")                         # get the start coordinate and orientaion from the user
         [x_start, y_start, theta_start] = [int(i) for i in start.split()]
-        # x_start += 50
-        # y_start += 100
+        x_start = int(x_start/10) + 50
+        y_start = int(y_start/10) + 100
         if (x_start, y_start) in obstacle_set:                                  # check if the start point is in the obstacle set
             print("Invalid coordinates, Enter again")                         # print error message
         else:
@@ -250,8 +234,8 @@ valid_goal = False                                                              
 while not valid_goal:
         goal = input("Enter the goal coordinates as (x, y): ")                         # get the start coordinate and orientaion from the user
         [x_goal, y_goal] = [int(i) for i in goal.split()]
-        # x_goal += 50
-        # y_goal += 100
+        x_goal = int(x_goal/10) + 50
+        y_goal = int(y_goal/10) + 100
         if (x_goal, y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
             print("Invalid coordinates, Enter again")                        # print error message
         else:
@@ -278,8 +262,6 @@ while(open_list):
     node = hq.heappop(open_list)       # pop the node with lowest cost to come
     closed_list.append(node[4])            # add the node coordinates to closed set
     closed_set.add(node[4])
-    # print(node[4])
-    # closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
     visited_node(node)                 # add the node to the visited list
     index = node[2]                    # store the index of the current node
     parent_index = node[3]             # store the parent index list of current node
@@ -402,7 +384,7 @@ while(open_list):
             hq.heappush(open_list, new_node)                            # push the new node to the open list
     # break
     
-print(node[4][0], node[4][1])
+print((node[4][0]-50)*10, (node[4][1]-100)*10)
 
 # # Mark the obstacle points in the frame, including points after bloating
 for point in obstacle_list:                            # loop to mark the obstacle points
