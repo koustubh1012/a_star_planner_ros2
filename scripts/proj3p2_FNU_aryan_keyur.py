@@ -16,8 +16,8 @@ obstacle_list = []               # list to store the obstacle points in order fo
 
 c2c_node_grid = [[float('inf')] * 200 for _ in range(600)]       # create a 2D array for storing cost to come
 tc_node_grid = [[float('inf')] * 200 for _ in range(600)]        # create a 2D array for storing cost to come
-closed_set = []               # set to store the value of visited and closed points                 
-closed_list = np.zeros((200, 600))
+closed_set = set()               # set to store the value of visited and closed points                 
+closed_list = []
 visited={}
 
 C = int(input("Enter the clearance from the obstacle in mm: "))     # Get clearance from the user
@@ -276,7 +276,8 @@ hq.heapify(open_list)                      # covers list to heapq data type
 
 while(open_list):
     node = hq.heappop(open_list)       # pop the node with lowest cost to come
-    closed_set.append(node[4])            # add the node coordinates to closed set
+    closed_list.append(node[4])            # add the node coordinates to closed set
+    closed_set.add(node[4])
     # print(node[4])
     # closed_list[int(node[4][0]), int(node[4][1])] = 1         # add the node to the closed list
     visited_node(node)                 # add the node to the visited list
@@ -434,7 +435,7 @@ for node in closed_set:                                                  # loop 
     # canvas[node[1], node[0]] = [0, 255, 0]                               # mark the explored nodes with green color
     cv2.circle(canvas, node, 1, (0,255,0), -1)             # mark the goal point with red color
     counter +=1                                                          # increment the counter
-    if counter%500 == 0 or counter == 0:                                 # check if the counter is divisible by 500
+    if counter%25 == 0 or counter == 0:                                 # check if the counter is divisible by 500
         canvas_resized = cv2.resize(canvas, (1500, 500))    
         canvas_flipped = cv2.flip(canvas_resized, 0)
         canvas_flipped = cv2.flip(canvas,0)                              # flip the frame
