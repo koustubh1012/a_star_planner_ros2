@@ -430,7 +430,7 @@ print("Exploring map")
 
 
 # print(closed_set)
-for node in closed_set:                                                  # loop to mark the explored nodes
+for node in closed_list:                                                  # loop to mark the explored nodes
 
     # canvas[node[1], node[0]] = [0, 255, 0]                               # mark the explored nodes with green color
     cv2.circle(canvas, node, 1, (0,255,0), -1)             # mark the goal point with red color
