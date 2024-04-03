@@ -19,6 +19,13 @@ class AStarControllerNode(Node):
 
     def __init__(self):
         super().__init__('a_star_controller_node')
+
+        self.declare_parameter('start_x',0.0)
+        self.declare_parameter('start_y',0.0)
+        self.declare_parameter('goal_x',0.0)
+        self.declare_parameter('goal_y',0.0)
+        # self.declare_parameter('',0.0)
+        
         self.C = 5
         self.R = 66/20                                                  # Robot wheel radius
         self.r = 22                                                   # Robot radius
