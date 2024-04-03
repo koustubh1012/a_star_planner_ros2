@@ -28,8 +28,9 @@ R = 66/20                                                  # Robot wheel radius
 r = 22                                                   # Robot radius
 L = 28.7                                                   # Robot wheel track
 T = C + r                                                 # Total clearance
-t = 2
 
+t_max = 3.5
+t_min = 0.25
 
 x_goal = 0  # Initialize the goal x coordinate
 y_goal = 0  # Initialize the goal y coordinate
@@ -40,6 +41,93 @@ y_start = 0 # Initialize the start y coordinate
 def visited_node(node):
     visited.update({node[2]:node[4]})
 
+
+'''
+Loop to define the obstacle points in the map
+'''
+for y in range(200):                                       # loop to define the obstacle points : x
+    for x in range(600):                                  # loop to define the obstacle points : y
+        canvas[y,x] = [255,255,255]                        # mark the points in the frame with white color
+        if (0<=y<=T):                                      # points in the bottom boundary
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+        elif (0<=x<=T):                                    # points in the left boundary
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+        elif (200-T<=y<200):                               # points in the top boundary
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+        elif (600-T<=x<600):                             # points in the right boundary
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+        
+        elif (150-T<=x<=175+T) and (100-T<=y<=200):    # points in first rectangle
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+
+        elif (250-T<=x<=275+T) and (0<=y<=100+T):       # points in second rectangle
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+         
+        # Points in the Circle shaped obstacle
+        elif ((x-420)**2 + (y-120)**2 <= (60+T)**2):      # points in the first rectangle of Concave shaped obstacle
+            obstacle_set.add((x,y))                        # add the points to the obstacle set
+            obstacle_list.append((x,y))                    # add the points to the obstacle list
+            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
+            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
+
+      
+valid_start = False                                                             # flag to check if the start point is valid
+
+while not valid_start:                                                          # loop to check if the start point is valid
+        start = input("Enter the start coordinates and orientation as (x, y, theta): ")                         # get the start coordinate and orientaion from the user
+        [x_start, y_start, theta_start] = [int(i) for i in start.split()]
+        x_start = int(x_start/10) + 50
+        y_start = int(y_start/10) + 100
+        if (x_start, y_start) in obstacle_set:                                  # check if the start point is in the obstacle set
+            print("Invalid coordinates, Enter again")                         # print error message
+        else:
+            initial_node = (0, 0, 1, [], (x_start, y_start), theta_start)       # create the initial node
+            valid_start = True                                                  # set the flag to true
+
+valid_goal = False                                                              # flag to check if the goal point is valid
+
+while not valid_goal:
+        goal = input("Enter the goal coordinates as (x, y): ")                         # get the start coordinate and orientaion from the user
+        [x_goal, y_goal] = [int(i) for i in goal.split()]
+        x_goal = int(x_goal/10) + 50
+        y_goal = int(y_goal/10) + 100
+        if (x_goal, y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
+            print("Invalid coordinates, Enter again")                        # print error message
+        else:
+            goal = (x_goal, y_goal)                                            # create the goal node
+            valid_goal = True                                                  # set the flag to true
+
+valid_rpm = False
+
+while not valid_rpm:
+    rpm = input("Enter the RPM1 and RPM: ")
+    [rpm1, rpm2] = [int(i) for i in rpm.split()]
+    if (5<=rpm1<=75 and 5<=rpm2<=75):
+        valid_rpm = True
+    else:
+        print("Invalid rpm, Enter again")
+
+min_rpm = min(rpm1,rpm2)
+
+t = ((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min                     # Calculate time step
 
 def action_1(node):
     ul = 0
@@ -169,88 +257,6 @@ def action_8(node):
     return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
 
 
-'''
-Loop to define the obstacle points in the map
-'''
-for y in range(200):                                       # loop to define the obstacle points : x
-    for x in range(600):                                  # loop to define the obstacle points : y
-        canvas[y,x] = [255,255,255]                        # mark the points in the frame with white color
-        if (0<=y<=T):                                      # points in the bottom boundary
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-        elif (0<=x<=T):                                    # points in the left boundary
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-        elif (200-T<=y<200):                               # points in the top boundary
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-        elif (600-T<=x<600):                             # points in the right boundary
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-        
-        elif (150-T<=x<=175+T) and (100-T<=y<=200):    # points in first rectangle
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-
-        elif (250-T<=x<=275+T) and (0<=y<=100+T):       # points in second rectangle
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-         
-        # Points in the Circle shaped obstacle
-        elif ((x-420)**2 + (y-120)**2 <= (60+T)**2):      # points in the first rectangle of Concave shaped obstacle
-            obstacle_set.add((x,y))                        # add the points to the obstacle set
-            obstacle_list.append((x,y))                    # add the points to the obstacle list
-            c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
-            tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
-
-      
-valid_start = False                                                             # flag to check if the start point is valid
-
-while not valid_start:                                                          # loop to check if the start point is valid
-        start = input("Enter the start coordinates and orientation as (x, y, theta): ")                         # get the start coordinate and orientaion from the user
-        [x_start, y_start, theta_start] = [int(i) for i in start.split()]
-        x_start = int(x_start/10) + 50
-        y_start = int(y_start/10) + 100
-        if (x_start, y_start) in obstacle_set:                                  # check if the start point is in the obstacle set
-            print("Invalid coordinates, Enter again")                         # print error message
-        else:
-            initial_node = (0, 0, 1, [], (x_start, y_start), theta_start)       # create the initial node
-            valid_start = True                                                  # set the flag to true
-
-valid_goal = False                                                              # flag to check if the goal point is valid
-
-while not valid_goal:
-        goal = input("Enter the goal coordinates as (x, y): ")                         # get the start coordinate and orientaion from the user
-        [x_goal, y_goal] = [int(i) for i in goal.split()]
-        x_goal = int(x_goal/10) + 50
-        y_goal = int(y_goal/10) + 100
-        if (x_goal, y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
-            print("Invalid coordinates, Enter again")                        # print error message
-        else:
-            goal = (x_goal, y_goal)                                            # create the goal node
-            valid_goal = True                                                  # set the flag to true
-
-valid_rpm = False
-
-while not valid_rpm:
-    rpm = input("Enter the RPM1 and RPM: ")
-    [rpm1, rpm2] = [int(i) for i in rpm.split()]
-    if (0<rpm1<375 and 0<rpm2<375):
-        valid_rpm = True
-    else:
-        print("Invalid rpm, Enter again") 
 
 start_time = time.time()  
 new_index = 1         
