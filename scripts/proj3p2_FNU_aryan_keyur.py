@@ -181,18 +181,21 @@ while(open_list):
 
     for action_set in action_lists:
         point, new_heading, tc, c2c = actionnn(node,action_set[0],action_set[1])
-        if point not in obstacle_set and point not in closed_set and 0<=x<=6000 and 0<=y<=2000:           # check if the new node is in the obstacle set or visited list
+        if point not in obstacle_set and point not in closed_set and 0<=point[0]<600 and 0<=point[1]<200:           # check if the new node is in the obstacle set or visited list
             x = int(point[0])                                                    # get the x coordinate of the new node
             y = int(point[1])                                                    # get the y coordinate of the new node
-            # print(x,y)
-            if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-                new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-                new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-                new_index+=1                                                # increment the index
-                tc_node_grid[x][y] = tc                                     # Update the new total cost
-                c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-                new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading) # create the new node
-                hq.heappush(open_list, new_node)                            # push the new node to the open list
+            try:
+                if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+                    new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+                    new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+                    new_index+=1                                                # increment the index
+                    tc_node_grid[x][y] = tc                                     # Update the new total cost
+                    c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+                    new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading) # create the new node
+                    hq.heappush(open_list, new_node)                            # push the new node to the open list
+            except:
+                print(x,y)
+
 
     
 print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
@@ -202,7 +205,7 @@ path = node[3]            # Get the parent node list
 counter = 0               # counter to count the frames to write on video
 
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 format
-video_writer = cv2.VideoWriter('new_output.mp4', fourcc, 60, (600, 200)) # Video writer object
+video_writer = cv2.VideoWriter('output/new_output.mp4', fourcc, 60, (600, 200)) # Video writer object
 
 '''
 Loop to mark the explored nodes in order on the frame
