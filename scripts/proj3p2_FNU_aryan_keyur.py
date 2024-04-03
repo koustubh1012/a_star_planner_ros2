@@ -30,16 +30,14 @@ L = 28.7                                                   # Robot wheel track
 T = C + r                                                 # Total clearance
 
 t_max = 3.5
-t_min = 0.25
+t_min = 0.1
 
 x_goal = 0  # Initialize the goal x coordinate
 y_goal = 0  # Initialize the goal y coordinate
 x_start = 0 # Initialize the start x coordinate
 y_start = 0 # Initialize the start y coordinate
+node=(0, 0, 1, [], (x_start, y_start), 0)
 
-# Funtion to update the visted nodes
-def visited_node(node):
-    visited.update({node[2]:node[4]})
 
 
 '''
@@ -88,7 +86,15 @@ for y in range(200):                                       # loop to define the 
             c2c_node_grid[x][y] = -1                       # mark the points in the cost to come grid with -1
             tc_node_grid[x][y] = -1                        # mark the points in the total cost grid with -1
 
-      
+ # Mark the obstacle points in the frame, including points after bloating
+for point in obstacle_list:                            # loop to mark the obstacle points
+    canvas[point[1],point[0]] = [255, 0, 0]            # mark the obstacle points with blue color
+
+# Draw the obstacles in the frame, excluding the points after bloating
+cv2.rectangle(canvas, (150, 200), (175, 100), (0 , 0, 255), -1)   # draw the first rectangle
+cv2.rectangle(canvas, (250, 100), (275, 0), (0 , 0, 255), -1)     # draw the second rectangle
+cv2.circle(canvas,(420, 120), 60, (0,0,255),-1)            # draw the circle shaped obstacle
+
 valid_start = False                                                             # flag to check if the start point is valid
 
 while not valid_start:                                                          # loop to check if the start point is valid
@@ -130,108 +136,18 @@ min_rpm = min(rpm1,rpm2)
 t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
 print("Calculated time step: ", t)
 
-def action_1(node):
-    ul = 0
-    ur = 2*math.pi*rpm1/60
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                     # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+# Funtion to update the visted nodes
+def visited_node(node):
+    visited.update({node[2]:node[4]})
 
-
-def action_2(node):
-    ul = 2*math.pi*rpm1/60
-    ur = 0
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                     # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
-
-def action_3(node):
-    ul = 2*math.pi*rpm1/60
-    ur = 2*math.pi*rpm1/60
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                  # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
-
-def action_4(node):
-    ul = 0
-    ur = 2*math.pi*rpm2/60
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                     # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
-
-def action_5(node):
-    ul = 2*math.pi*rpm2/60
-    ur = 0
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                     # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
-
-def action_6(node):
-    ul = 2*math.pi*rpm2/60
-    ur = 2*math.pi*rpm2/60
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                   # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
-
-def action_7(node):
+def actionnn(node,rpm1,rpm2):
     ul = 2*math.pi*rpm1/60
     ur = 2*math.pi*rpm2/60
     new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
     x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
     y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+    # print("X vel: ", x_vel)
+    # print("Y vel: ", y_vel)
     x = node[4][0] + x_vel*t # calculate the new x coordinate
     y = node[4][1] + y_vel*t # calculate the new y coordinate
     x = round(x) 
@@ -241,22 +157,7 @@ def action_7(node):
     tc = c2c + c2g                                   # calculate the total cost
     return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
 
-
-def action_8(node):
-    ul = 2*math.pi*rpm2/60
-    ur = 2*math.pi*rpm1/60
-    new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
-    x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
-    y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-    x = node[4][0] + x_vel*t # calculate the new x coordinate
-    y = node[4][1] + y_vel*t # calculate the new y coordinate
-    x = round(x) 
-    y = round(y)
-    c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                   # calculate the cost to come
-    c2g = math.sqrt((y_goal-y)**2 + (x_goal-x)**2)   # calculate the cost to goal
-    tc = c2c + c2g                                   # calculate the total cost
-    return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
-
+action_lists=[(0,rpm1),(rpm1,0),(rpm1,rpm1),(rpm1,rpm2),(rpm2,rpm1),(0,rpm2),(rpm2,0),(rpm2,rpm2)]
 
 
 start_time = time.time()  
@@ -278,139 +179,30 @@ while(open_list):
         print("Goal reached")
         break
 
-    point, new_heading, tc, c2c = action_1(node)
-    # print("Action 1", point, new_heading, tc, c2c)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
+    for action_set in action_lists:
+        point, new_heading, tc, c2c = actionnn(node,action_set[0],action_set[1])
+        if point not in obstacle_set and point not in closed_set and 0<=x<=6000 and 0<=y<=2000:           # check if the new node is in the obstacle set or visited list
+            x = int(point[0])                                                    # get the x coordinate of the new node
+            y = int(point[1])                                                    # get the y coordinate of the new node
+            # print(x,y)
+            if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+                new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+                new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+                new_index+=1                                                # increment the index
+                tc_node_grid[x][y] = tc                                     # Update the new total cost
+                c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+                new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading) # create the new node
+                hq.heappush(open_list, new_node)                            # push the new node to the open list
 
-    point, new_heading, tc, c2c = action_2(node)
-    # print("Action 2", point, new_heading, tc, c2c)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 3", point, new_heading, tc, c2c)
-    point, new_heading, tc, c2c = action_3(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 4", point, new_heading, tc, c2c)
-    point, new_heading, tc, c2c = action_4(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 5", point, new_heading, tc, c2c)
-    point, new_heading, tc, c2c = action_5(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 6", point, new_heading, tc, c2c)
-    point, new_heading, tc, c2c = action_6(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 7", point, new_heading, tc, c2c)
-    point, new_heading, tc, c2c = action_7(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-
-    # print("Action 8", point, new_heading, tc, c2c)   
-    point, new_heading, tc, c2c = action_8(node)
-    if point not in obstacle_set and point not in closed_set and 0<=x<=600 and 0<=y<=200:           # check if the new node is in the obstacle set or visited list
-        x = point[0]                                                    # get the x coordinate of the new node
-        y = point[1]                                                    # get the y coordinate of the new node
-        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
-            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
-            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
-            new_index+=1                                                # increment the index
-            tc_node_grid[x][y] = tc                                     # Update the new total cost
-            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-            new_node = (tc, c2c, new_index, new_parent_index, point, new_heading) # create the new node
-            hq.heappush(open_list, new_node)                            # push the new node to the open list
-    # break
     
-print((node[4][0]-50)*10, (node[4][1]-100)*10)
-
-# # Mark the obstacle points in the frame, including points after bloating
-for point in obstacle_list:                            # loop to mark the obstacle points
-    canvas[point[1],point[0]] = [255, 0, 0]            # mark the obstacle points with blue color
-
-# Draw the obstacles in the frame, excluding the points after bloating
-cv2.rectangle(canvas, (150, 200), (175, 100), (0 , 0, 255), -1)   # draw the first rectangle
-cv2.rectangle(canvas, (250, 100), (275, 0), (0 , 0, 255), -1)     # draw the second rectangle
-cv2.circle(canvas,(420, 120), 60, (0,0,255),-1)            # draw the circle shaped obstacle
-cv2.circle(canvas,(x_start, y_start), 5, (0,0,255), -1)             # mark the goal point with red color
-cv2.circle(canvas,(x_goal, y_goal), 5, (255,0,255), -1)             # mark the goal point with red color
-cv2.circle(canvas, node[4] , 5, (0,255,255), -1)             # mark the goal point with red color
+print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
 
 
 path = node[3]            # Get the parent node list 
 counter = 0               # counter to count the frames to write on video
 
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 format
-video_writer = cv2.VideoWriter('output/output.mp4', fourcc, 60, (600, 200)) # Video writer object
+video_writer = cv2.VideoWriter('new_output.mp4', fourcc, 60, (600, 200)) # Video writer object
 
 '''
 Loop to mark the explored nodes in order on the frame
@@ -425,8 +217,8 @@ for node in closed_list:                                                  # loop
     cv2.circle(canvas, node, 1, (0,255,0), -1)             # mark the goal point with red color
     counter +=1                                                          # increment the counter
     if counter%25 == 0 or counter == 0:                                 # check if the counter is divisible by 500
-        canvas_resized = cv2.resize(canvas, (1500, 500))    
-        canvas_flipped = cv2.flip(canvas_resized, 0)
+        cv2.circle(canvas,(x_start, y_start), 5, (0,0,255), -1)             # mark the goal point with red color
+        cv2.circle(canvas,(x_goal, y_goal), 5, (255,0,255), -1)             # mark the goal point with red color
         canvas_flipped = cv2.flip(canvas,0)                              # flip the frame
         canvas_flipped_uint8 = cv2.convertScaleAbs(canvas_flipped)       # convert the frame to uint8
         # cv2.imshow('window',canvas_flipped_uint8)
