@@ -118,16 +118,17 @@ while not valid_goal:
 valid_rpm = False
 
 while not valid_rpm:
-    rpm = input("Enter the RPM1 and RPM: ")
+    rpm = input("Enter the RPM1 and RPM2: ")
     [rpm1, rpm2] = [int(i) for i in rpm.split()]
     if (5<=rpm1<=75 and 5<=rpm2<=75):
         valid_rpm = True
     else:
-        print("Invalid rpm, Enter again")
+        print("Invalid rpm, Enter again in the range of 5 and 75")
 
 min_rpm = min(rpm1,rpm2)
 
-t = ((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min                     # Calculate time step
+t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
+print("Calculated time step: ", t)
 
 def action_1(node):
     ul = 0
