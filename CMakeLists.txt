@@ -27,6 +27,8 @@ find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
+find_package(python_cmake_module REQUIRED)
+find_package(rclpy REQUIRED)
 
 ################################################################################
 # Build
@@ -74,6 +76,11 @@ install(DIRECTORY include/
 # Install python scripts
 install(PROGRAMS 
   scripts/teleop.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS 
+  scripts/a_star_controller.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
