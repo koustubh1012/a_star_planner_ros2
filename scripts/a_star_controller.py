@@ -209,11 +209,17 @@ class AStarControllerNode(Node):
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    node = AStarControllerNode()
-    node.destroy_node()
-    rclpy.spin(node)
-    rclpy.shutdown()
+    
+    rclpy.init(args=args) # Initialize the ROS client library
+    node = AStarControllerNode() # Create an instance of the AStarControllerNode
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        node.get_logger().error("KeyboardInterrupt received!")
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
