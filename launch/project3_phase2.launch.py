@@ -2,31 +2,29 @@
 
 import os
 
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-
+from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import LaunchConfiguration                                                     
+from ament_index_python.packages import get_package_share_directory
+from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
-    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_project3'), 'launch')
-    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+    ld = LaunchDescription()
+    cmd_line_parameter = DeclareLaunchArgument('cmd_line_parameter', default_value='default_value', description='Description of the command line parameter')
+    pkg_gazebo_ros = FindPackageShare('gazebo_ros')
 
     x_pose = LaunchConfiguration('x_pose', default='0.0')
     y_pose = LaunchConfiguration('y_pose', default='0.0')
-    a_start_controller_node = Node(
-            package='turtlebot3_project3',
-            # namespace='turtlebot3',
-            executable='a_start_controller.py',
-            name='a_start_controller'
-        )
+    a_star_controller_node = Node(
+        package='project3_phase2',
+        executable='a_star_controller',
+        name='a_star_controller',
+        output='screen',
+        parameters=[{'x_pose': x_pose, 'y_pose': y_pose}]
+    )
 
-
-    ld = LaunchDescription()
-
-    # Add the commands to the launch description
-    ld.add_action(a_start_controller_node)
+    ld.add_action(cmd_line_parameter)
 
     return ld
