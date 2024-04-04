@@ -36,21 +36,30 @@ class AStarControllerNode(Node):
         self.rpm1 = self.get_parameter('rpm1').value
         self.rpm2 = self.get_parameter('rpm2').value
 
+    
         self.get_logger().info('A start controller node initialised')
 
         self.a_star_solver()
 
-
-
-
-
-
-
-
-
-
-
+        self.i = 0
+        self.get_logger().info('Creating Publisher')
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
+        self.velocity_msg = Twist()
+
+
+
+    def velocity_publisher(self):
+        action = self.final_action_set[self.i]
+        self.i += 1
+        self.velocity_msg.linear.x = action[0]/100  # Linear velocity (m/s)
+        self.velocity_msg.angular.z = action[1]  # Angular velocity (rad/s)
+        
+        # Publish velocity
+        self.cmd_vel_pub.publish(self.velocity_msg)
+        self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
+        
+
 
     def a_star_solver(self):
         obstacle_set = set()             # set to store the obstacle points
@@ -126,8 +135,8 @@ class AStarControllerNode(Node):
 
         min_rpm = min(self.rpm1, self.rpm2)
 
-        t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
-        self.get_logger().info('Calculated time step : %s' % t)
+        self.t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
+        self.get_logger().info('Calculated time step : %s' % self.t)
 
         def visited_node(node):
             visited.update({node[2]:node[4]})
@@ -135,19 +144,21 @@ class AStarControllerNode(Node):
         def actionnn(node,rpm1,rpm2):
             ul = 2*math.pi*rpm1/60
             ur = 2*math.pi*rpm2/60
-            new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+            theta_dot = (R/L)*(ul - ur)
+            new_heading = (node[5] + (np.rad2deg(theta_dot)*self.t)) % 360        # get the current heading of the robot
             x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
             y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+            v_dot = math.sqrt(x_vel**2 + y_vel**2)
             # print("X vel: ", x_vel)
             # print("Y vel: ", y_vel)
-            x = node[4][0] + x_vel*t # calculate the new x coordinate
-            y = node[4][1] + y_vel*t # calculate the new y coordinate
+            x = node[4][0] + x_vel*self.t # calculate the new x coordinate
+            y = node[4][1] + y_vel*self.t # calculate the new y coordinate
             x = round(x) 
             y = round(y)
-            c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                    # calculate the cost to come
+            c2c = node[1] + math.sqrt((x_vel*self.t)**2 + (y_vel*self.t)**2)                                    # calculate the cost to come
             c2g = math.sqrt((self.y_goal-y)**2 + (self.x_goal-x)**2)   # calculate the cost to goal
             tc = c2c + c2g                                   # calculate the total cost
-            return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+            return (x,y),new_heading,tc,c2c, (v_dot, theta_dot)                  # return the new node's coordinates, heading, total cost and cost to come
 
         action_lists=[(0,self.rpm1),(self.rpm1,0),(self.rpm1,self.rpm1),(self.rpm1,self.rpm2),
                       (self.rpm2,self.rpm1),(0,self.rpm2),(self.rpm2,0),(self.rpm2,self.rpm2)]
@@ -172,7 +183,7 @@ class AStarControllerNode(Node):
                 break
 
             for action_set in action_lists:
-                point, new_heading, tc, c2c = actionnn(node,action_set[0],action_set[1])
+                point, new_heading, tc, c2c, action = actionnn(node,action_set[0],action_set[1])
                 if point not in obstacle_set and point not in closed_set and 0<=point[0]<600 and 0<=point[1]<200:           # check if the new node is in the obstacle set or visited list
                     x = int(point[0])                                                    # get the x coordinate of the new node
                     y = int(point[1])                                                    # get the y coordinate of the new node
@@ -183,12 +194,14 @@ class AStarControllerNode(Node):
                             new_index+=1                                                # increment the index
                             tc_node_grid[x][y] = tc                                     # Update the new total cost
                             c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-                            performed_action_list.append(action_set)
+                            performed_action_list.append(action)
                             new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading, performed_action_list) # create the new node
                             hq.heappush(open_list, new_node)                            # push the new node to the open list
                     except:
                         pass
-        self.get_logger().info("Actual goal reached : %s , %s" %((node[4][0]-50)*10, (node[4][1]-100)*10))
+
+        self.final_action_set = node[6]
+        print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
 
         
 
@@ -199,6 +212,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = AStarControllerNode()
     node.destroy_node()
+    rclpy.spin(node)
     rclpy.shutdown()
 
 if __name__ == '__main__':
