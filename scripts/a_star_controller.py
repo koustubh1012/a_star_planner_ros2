@@ -25,14 +25,14 @@ class AStarControllerNode(Node):
         self.declare_parameter('goal_x',5000.0)
         self.declare_parameter('goal_y',0.0)
         self.declare_parameter('clearance', 50.0)
-        self.declare_parameter('rpm1', 30.0)
-        self.declare_parameter('rpm2', 40.0)
+        self.declare_parameter('rpm1', 40.0)
+        self.declare_parameter('rpm2', 50.0)
 
-        self.x_goal = self.get_parameter('goal_x').value
-        self.y_goal = self.get_parameter('goal_y').value
-        self.x_start = self.get_parameter('x_pose').value
-        self.y_start = self.get_parameter('y_pose').value
-        self.C = self.get_parameter('clearance').value
+        self.x_goal = int(self.get_parameter('goal_x').value/10) + 50
+        self.y_goal = int(self.get_parameter('goal_y').value/10) + 100
+        self.x_start = int(self.get_parameter('x_pose').value/10) + 50
+        self.y_start = int(self.get_parameter('y_pose').value/10) + 100
+        self.C = self.get_parameter('clearance').value/10
         self.rpm1 = self.get_parameter('rpm1').value
         self.rpm2 = self.get_parameter('rpm2').value
 
@@ -72,7 +72,11 @@ class AStarControllerNode(Node):
         t_max = 3.5
         t_min = 0.1
 
+        theta_start = 0.0
+
         node=(0, 0, 1, [], (self.x_start, self.y_start), 0)
+        initial_node = (0, 0, 1, [], (self.x_start, self.y_start), theta_start)       # create the initial node
+
         
 
         '''
@@ -124,6 +128,67 @@ class AStarControllerNode(Node):
 
         t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
         self.get_logger().info('Calculated time step : %s' % t)
+
+        def visited_node(node):
+            visited.update({node[2]:node[4]})
+
+        def actionnn(node,rpm1,rpm2):
+            ul = 2*math.pi*rpm1/60
+            ur = 2*math.pi*rpm2/60
+            new_heading = (node[5] + np.rad2deg(((R/L)*(ul - ur)*t))) % 360        # get the current heading of the robot
+            x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
+            y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
+            # print("X vel: ", x_vel)
+            # print("Y vel: ", y_vel)
+            x = node[4][0] + x_vel*t # calculate the new x coordinate
+            y = node[4][1] + y_vel*t # calculate the new y coordinate
+            x = round(x) 
+            y = round(y)
+            c2c = node[1] + math.sqrt((x_vel*t)**2 + (y_vel*t)**2)                                    # calculate the cost to come
+            c2g = math.sqrt((self.y_goal-y)**2 + (self.x_goal-x)**2)   # calculate the cost to goal
+            tc = c2c + c2g                                   # calculate the total cost
+            return (x,y),new_heading,tc,c2c                  # return the new node's coordinates, heading, total cost and cost to come
+
+        action_lists=[(0,self.rpm1),(self.rpm1,0),(self.rpm1,self.rpm1),(self.rpm1,self.rpm2),
+                      (self.rpm2,self.rpm1),(0,self.rpm2),(self.rpm2,0),(self.rpm2,self.rpm2)]
+        
+        new_index = 1         
+        open_list = []
+        hq.heappush(open_list,initial_node)        # Push initial node to the list
+        hq.heapify(open_list)                      # covers list to heapq data type
+
+        while(open_list):
+            node = hq.heappop(open_list)       # pop the node with lowest cost to come
+            closed_list.append(node[4])            # add the node coordinates to closed set
+            closed_set.add(node[4])
+            visited_node(node)                 # add the node to the visited list
+            index = node[2]                    # store the index of the current node
+            parent_index = node[3]             # store the parent index list of current node
+
+            node_dist = math.sqrt((node[4][0]-self.x_goal)**2 + (node[4][1]-self.y_goal)**2)     # calculate the distance between the current node and goal node
+            if node_dist < 5:    # if the node is goal position, exit the loop
+                print("Goal reached")
+                break
+
+            for action_set in action_lists:
+                point, new_heading, tc, c2c = actionnn(node,action_set[0],action_set[1])
+                if point not in obstacle_set and point not in closed_set and 0<=point[0]<600 and 0<=point[1]<200:           # check if the new node is in the obstacle set or visited list
+                    x = int(point[0])                                                    # get the x coordinate of the new node
+                    y = int(point[1])                                                    # get the y coordinate of the new node
+                    try:
+                        if tc<tc_node_grid[x][y]:                                       # check if the new cost to come is less than original cost to come
+                            new_parent_index = parent_index.copy()                      # copy the parent index list of the current node
+                            new_parent_index.append(index)                              # Append the current node's index to the new node's parent index list
+                            new_index+=1                                                # increment the index
+                            tc_node_grid[x][y] = tc                                     # Update the new total cost
+                            c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
+                            new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading) # create the new node
+                            hq.heappush(open_list, new_node)                            # push the new node to the open list
+                    except:
+                        pass
+        print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
+
+        
 
 
 
