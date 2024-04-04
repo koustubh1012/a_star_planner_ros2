@@ -12,28 +12,27 @@ from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
     ld = LaunchDescription()
-    cmd_line_parameter = DeclareLaunchArgument('cmd_line_parameter', default_value='default_value', description='Description of the command line parameter')
-    pkg_gazebo_ros = FindPackageShare('gazebo_ros')
+    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_project3'), 'launch')
+    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+
 
     declare_x_pose_arg = DeclareLaunchArgument('x_pose', default_value='0.0',description='Initial x pose')
     declare_y_pose_arg = DeclareLaunchArgument('y_pose', default_value='0.0',description='Initial y pose')
 
-
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose')
     y_pose = LaunchConfiguration('y_pose')
     a_star_controller_node = Node(
-        package='project3_phase2',
-        executable='a_star_controller',
+        package='turtlebot3_project3',
+        executable='a_star_controller.py',
         name='a_star_controller',
         output='screen',
-        parameters=[{'x_pose': x_pose, 'y_pose': y_pose}]
+        parameters=[{'x_pose': x_pose, 'y_pose': y_pose, 'use_sim_time': use_sim_time}]
     )
 
 
     ld.add_action(declare_x_pose_arg)
     ld.add_action(declare_y_pose_arg)
-    ld.add_action(cmd_line_parameter)
+    ld.add_action(a_star_controller_node)
 
     return ld
-
-#to run ros2 launch turtlebot3_project3 project3_phase2.launch.py x_pose:=1.0 y_pose:=2.0
