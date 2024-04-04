@@ -20,11 +20,18 @@ class AStarControllerNode(Node):
     def __init__(self):
         super().__init__('a_star_controller_node')
 
-        self.declare_parameter('start_x',0.0)
-        self.declare_parameter('start_y',0.0)
+        self.declare_parameter('x_pose',0.0)
+        self.declare_parameter('y_pose',0.0)
         self.declare_parameter('goal_x',0.0)
         self.declare_parameter('goal_y',0.0)
-        # self.declare_parameter('',0.0)
+        self.declare_parameter('clearance', 50.0)
+
+        x_goal = self.get_parameter('goal_x').value
+        y_goal = self.get_parameter('goal_y').value
+        x_start = self.get_parameter('x_pose').value
+        y_start = self.get_parameter('y_pose').value
+        self.get_logger().info('My parameter value: %s' % x_goal)
+        node=(0, 0, 1, [], (x_start, y_start), 0)
         
         self.C = 5
         self.R = 66/20                                                  # Robot wheel radius
@@ -53,7 +60,6 @@ class AStarControllerNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = AStarControllerNode()
-    node.run_keyboard_control()
     node.destroy_node()
     rclpy.shutdown()
 
