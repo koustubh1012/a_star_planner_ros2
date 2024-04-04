@@ -75,7 +75,7 @@ class AStarControllerNode(Node):
         theta_start = 0.0
 
         node=(0, 0, 1, [], (self.x_start, self.y_start), 0)
-        initial_node = (0, 0, 1, [], (self.x_start, self.y_start), theta_start)       # create the initial node
+        initial_node = (0, 0, 1, [], (self.x_start, self.y_start), theta_start, [])       # create the initial node
 
         
 
@@ -164,6 +164,7 @@ class AStarControllerNode(Node):
             visited_node(node)                 # add the node to the visited list
             index = node[2]                    # store the index of the current node
             parent_index = node[3]             # store the parent index list of current node
+            performed_action_list = node[6]
 
             node_dist = math.sqrt((node[4][0]-self.x_goal)**2 + (node[4][1]-self.y_goal)**2)     # calculate the distance between the current node and goal node
             if node_dist < 5:    # if the node is goal position, exit the loop
@@ -182,11 +183,12 @@ class AStarControllerNode(Node):
                             new_index+=1                                                # increment the index
                             tc_node_grid[x][y] = tc                                     # Update the new total cost
                             c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-                            new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading) # create the new node
+                            performed_action_list.append(action_set)
+                            new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading, performed_action_list) # create the new node
                             hq.heappush(open_list, new_node)                            # push the new node to the open list
                     except:
                         pass
-        print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
+        self.get_logger().info("Actual goal reached : %s , %s" %((node[4][0]-50)*10, (node[4][1]-100)*10))
 
         
 
