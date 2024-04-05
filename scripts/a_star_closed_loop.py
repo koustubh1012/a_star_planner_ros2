@@ -3,6 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 import sys
 import select
 import tty
@@ -19,6 +20,8 @@ class AStarControllerNode(Node):
 
     def __init__(self):
         super().__init__('a_star_controller_node')
+        self.subscription = self.create_subscription(Odometry,'/odom',self.odom_callback, 10)
+        self.subscription  # prevent unused variable warning
 
         self.declare_parameter('x_pose',0.0)
         self.declare_parameter('y_pose',0.0)
@@ -45,19 +48,27 @@ class AStarControllerNode(Node):
         self.get_logger().info('Creating Publisher')
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
         self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
-        self.velocity_msg = Twist()
+        self.velocity_msg = Twist()   
+        
 
-
+    def odom_callback(self, msg):
+        robot_x = msg.pose.pose.position.x
+        robot_y = msg.pose.pose.position.x
+        wpt_x = self.waypoints[self.i][0]/100
+        wpt_y = self.waypoints[self.i][1]/100
+        dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
+        
 
     def velocity_publisher(self):
-        action = self.final_action_set[self.i]
-        self.i += 1
-        self.velocity_msg.linear.x = action[0]/100  # Linear velocity (m/s)
-        self.velocity_msg.angular.z = action[1]  # Angular velocity (rad/s)
+        pass
+
         
-        # Publish velocity
-        self.cmd_vel_pub.publish(self.velocity_msg)
-        self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
+        # self.velocity_msg.linear.x = action[0]/100  # Linear velocity (m/s)
+        # self.velocity_msg.angular.z = action[1]  # Angular velocity (rad/s)
+        
+        # # Publish velocity
+        # self.cmd_vel_pub.publish(self.velocity_msg)
+        # self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
         
 
 
@@ -198,10 +209,14 @@ class AStarControllerNode(Node):
                     except:
                         pass
 
-        self.final_action_set = node[6]
-        print(len(node[6]))
         print(len(node[3]))
+        path = node[3]
+        self.waypoints = []
         print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
+        for index in path:                                                        # loop to mark the path
+            coord=visited[index]                                                  # get the coordinates of the node
+            self.waypoints.append(coord)
+        print("Waypoints: ",self.waypoints)
 
         
 
