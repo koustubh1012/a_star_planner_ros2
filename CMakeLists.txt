@@ -84,6 +84,11 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+install(PROGRAMS 
+  scripts/a_star_closed_loop.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ################################################################################
 # Macro for ament package
 ################################################################################
