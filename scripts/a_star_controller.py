@@ -158,7 +158,7 @@ class AStarControllerNode(Node):
             c2c = node[1] + math.sqrt((x_vel*self.t)**2 + (y_vel*self.t)**2)                                    # calculate the cost to come
             c2g = math.sqrt((self.y_goal-y)**2 + (self.x_goal-x)**2)   # calculate the cost to goal
             tc = c2c + c2g                                   # calculate the total cost
-            return (x,y),new_heading,tc,c2c, (v_dot, theta_dot)                  # return the new node's coordinates, heading, total cost and cost to come
+            return (x,y),new_heading,tc,c2c                # return the new node's coordinates, heading, total cost and cost to come
 
         action_lists=[(0,self.rpm1),(self.rpm1,0),(self.rpm1,self.rpm1),(self.rpm1,self.rpm2),
                       (self.rpm2,self.rpm1),(0,self.rpm2),(self.rpm2,0),(self.rpm2,self.rpm2)]
@@ -183,7 +183,7 @@ class AStarControllerNode(Node):
                 break
 
             for action_set in action_lists:
-                point, new_heading, tc, c2c, action = actionnn(node,action_set[0],action_set[1])
+                point, new_heading, tc, c2c= actionnn(node,action_set[0],action_set[1])
                 if point not in obstacle_set and point not in closed_set and 0<=point[0]<600 and 0<=point[1]<200:           # check if the new node is in the obstacle set or visited list
                     x = int(point[0])                                                    # get the x coordinate of the new node
                     y = int(point[1])                                                    # get the y coordinate of the new node
@@ -194,13 +194,15 @@ class AStarControllerNode(Node):
                             new_index+=1                                                # increment the index
                             tc_node_grid[x][y] = tc                                     # Update the new total cost
                             c2c_node_grid[x][y] = c2c                                   # Update the new cost to come
-                            performed_action_list.append(action)
+                            performed_action_list.append(action_set)
                             new_node = (tc, c2c, new_index, new_parent_index, (x,y), new_heading, performed_action_list) # create the new node
                             hq.heappush(open_list, new_node)                            # push the new node to the open list
                     except:
                         pass
 
         self.final_action_set = node[6]
+        print(len(node[6]))
+        print(len(node[3]))
         print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
 
         
