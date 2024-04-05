@@ -44,23 +44,31 @@ class AStarControllerNode(Node):
 
         self.a_star_solver()
 
-        self.i = 0
+        self.i = 1
         self.get_logger().info('Creating Publisher')
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
-        self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
+        # self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
         self.velocity_msg = Twist()   
         
 
     def odom_callback(self, msg):
+        x = msg.pose.pose.orientation.x  
+        y = msg.pose.pose.orientation.y
+        z = msg.pose.pose.orientation.z
+        w = msg.pose.pose.orientation.w
+        self.yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y*y + z*z))                    # convert quaternion to yaw angle
         robot_x = msg.pose.pose.position.x
-        robot_y = msg.pose.pose.position.x
+        robot_y = msg.pose.pose.position.y
         wpt_x = self.waypoints[self.i][0]/100
         wpt_y = self.waypoints[self.i][1]/100
         dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
+        yaw_req = math.atan2(wpt_y-robot_y, wpt_x-robot_x)
+        # if (dist
+        
         
 
-    def velocity_publisher(self):
-        pass
+    # def velocity_publisher(self):
+    #     pass
 
         
         # self.velocity_msg.linear.x = action[0]/100  # Linear velocity (m/s)
@@ -215,7 +223,10 @@ class AStarControllerNode(Node):
         print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
         for index in path:                                                        # loop to mark the path
             coord=visited[index]                                                  # get the coordinates of the node
-            self.waypoints.append(coord)
+            x = (coord[0]-50)/100
+            y = (coord[1]-100)/100
+            self.waypoints.append((x, y))
+        # self.waypoints.append
         print("Waypoints: ",self.waypoints)
 
         
