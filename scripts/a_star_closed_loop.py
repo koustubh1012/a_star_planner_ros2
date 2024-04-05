@@ -62,7 +62,7 @@ class AStarControllerNode(Node):
         robot_y = msg.pose.pose.position.y
         wpt_x = self.waypoints[self.i][0]
         wpt_y = self.waypoints[self.i][1]
-        self.get_logger().info('Waypoint: %s %s ' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
+        # self.get_logger().info('Waypoint: %s %s ' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
         # wpt_x = 10
         # wpt_y = 10
         dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
@@ -70,9 +70,9 @@ class AStarControllerNode(Node):
         e = yaw_req - yaw
         # print(e)
         # print(robot_x, robot_y)
-        print(dist)
+        # print(dist)
         if (abs(wpt_y - robot_y) > 0.01 and abs(wpt_x - robot_x) > 0.01):
-            self.velocity_msg.angular.z = 0.2*e
+            self.velocity_msg.angular.z = 0.25*e
             # self.velocity_msg.linear.x = 0.1*
             if self.velocity_msg.angular.z > 1.82:
                 self.velocity_msg.angular.z = 1.82
@@ -82,8 +82,14 @@ class AStarControllerNode(Node):
             self.cmd_vel_pub.publish(self.velocity_msg)
             # self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
         else:
-            self.get_logger().info('Waypoint %s %s reached' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
-            self.i += 1
+            try:
+                self.get_logger().info('Next Waypoint: %s %s' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
+                self.i += 1
+            except:
+                self.velocity_msg.linear.x = 0
+                self.velocity_msg.angular.z = 0
+                self.cmd_vel_pub.publish(self.velocity_msg)
+                self.get_logger().info('Goal reached')
 
 
         
@@ -250,6 +256,7 @@ class AStarControllerNode(Node):
             y = (coord[1]-100)/100
             self.waypoints.append((x, y))
         # self.waypoints.append
+        self.waypoints.append((self.x_goal/100, self.y_goal))
         print("Waypoints: ",self.waypoints)
 
         
