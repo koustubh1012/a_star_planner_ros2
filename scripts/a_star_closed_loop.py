@@ -28,8 +28,8 @@ class AStarControllerNode(Node):
         self.declare_parameter('goal_x',5000.0)
         self.declare_parameter('goal_y',0.0)
         self.declare_parameter('clearance', 50.0)
-        self.declare_parameter('rpm1', 40.0)
-        self.declare_parameter('rpm2', 50.0)
+        self.declare_parameter('rpm1', 10.0)
+        self.declare_parameter('rpm2', 20.0)
 
         self.x_goal = int(self.get_parameter('goal_x').value/10) + 50
         self.y_goal = int(self.get_parameter('goal_y').value/10) + 100
@@ -44,7 +44,7 @@ class AStarControllerNode(Node):
 
         self.a_star_solver()
 
-        self.i = 1
+        self.i = 0
         self.get_logger().info('Creating Publisher')
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
         # self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
@@ -52,18 +52,40 @@ class AStarControllerNode(Node):
         
 
     def odom_callback(self, msg):
+        max_rpm = max(self.rpm1, self.rpm2) 
         x = msg.pose.pose.orientation.x  
         y = msg.pose.pose.orientation.y
         z = msg.pose.pose.orientation.z
         w = msg.pose.pose.orientation.w
-        self.yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y*y + z*z))                    # convert quaternion to yaw angle
+        yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y*y + z*z))                    # convert quaternion to yaw angle
         robot_x = msg.pose.pose.position.x
         robot_y = msg.pose.pose.position.y
-        wpt_x = self.waypoints[self.i][0]/100
-        wpt_y = self.waypoints[self.i][1]/100
+        wpt_x = self.waypoints[self.i][0]
+        wpt_y = self.waypoints[self.i][1]
+        self.get_logger().info('Waypoint: %s %s ' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
+        # wpt_x = 10
+        # wpt_y = 10
         dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
         yaw_req = math.atan2(wpt_y-robot_y, wpt_x-robot_x)
-        # if (dist
+        e = yaw_req - yaw
+        # print(e)
+        # print(robot_x, robot_y)
+        print(dist)
+        if (abs(wpt_y - robot_y) > 0.01 and abs(wpt_x - robot_x) > 0.01):
+            self.velocity_msg.angular.z = 0.2*e
+            # self.velocity_msg.linear.x = 0.1*
+            if self.velocity_msg.angular.z > 1.82:
+                self.velocity_msg.angular.z = 1.82
+            elif self.velocity_msg.angular.z < -1.82:
+                self.velocity_msg.angular.z = -1.82
+            self.velocity_msg.linear.x = (2*math.pi*max_rpm/60)*33/1000
+            self.cmd_vel_pub.publish(self.velocity_msg)
+            # self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
+        else:
+            self.get_logger().info('Waypoint %s %s reached' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
+            self.i += 1
+
+
         
         
 
@@ -219,6 +241,7 @@ class AStarControllerNode(Node):
 
         print(len(node[3]))
         path = node[3]
+        # self.step_size = int(len(node[3])/7)
         self.waypoints = []
         print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
         for index in path:                                                        # loop to mark the path
