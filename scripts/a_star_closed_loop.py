@@ -28,8 +28,8 @@ class AStarControllerNode(Node):
         self.declare_parameter('goal_x',5000.0)
         self.declare_parameter('goal_y',-500.0)
         self.declare_parameter('clearance', 50.0)
-        self.declare_parameter('rpm1', 10.0)
-        self.declare_parameter('rpm2', 20.0)
+        self.declare_parameter('rpm1', 20.0)
+        self.declare_parameter('rpm2', 30.0)
 
         self.x_goal = int(self.get_parameter('goal_x').value/10) + 50
         self.y_goal = int(self.get_parameter('goal_y').value/10) + 100
@@ -71,9 +71,9 @@ class AStarControllerNode(Node):
             dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
             yaw_req = math.atan2(wpt_y-robot_y, wpt_x-robot_x)
             e = yaw_req - yaw
-            if dist>0.1:
+            if dist>0.15:
             # if (abs(wpt_y - robot_y) > 0.01 and abs(wpt_x - robot_x) > 0.01):
-                self.velocity_msg.angular.z = 0.25*e
+                self.velocity_msg.angular.z = 0.35*e
                 if self.velocity_msg.angular.z > 1.82:
                     self.velocity_msg.angular.z = 1.82
                 elif self.velocity_msg.angular.z < -1.82:
