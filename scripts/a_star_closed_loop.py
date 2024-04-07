@@ -26,7 +26,7 @@ class AStarControllerNode(Node):
         self.declare_parameter('x_pose',0.0)
         self.declare_parameter('y_pose',0.0)
         self.declare_parameter('goal_x',5000.0)
-        self.declare_parameter('goal_y',-500.0)
+        self.declare_parameter('goal_y',0.0)
         self.declare_parameter('clearance', 50.0)
         self.declare_parameter('rpm1', 20.0)
         self.declare_parameter('rpm2', 30.0)
@@ -47,7 +47,6 @@ class AStarControllerNode(Node):
         self.i = 0
         self.get_logger().info('Creating Publisher')
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
-        # self.timer_ = self.create_timer(self.t, self.velocity_publisher)  # 1570 ms interval
         self.velocity_msg = Twist()   
         
 
@@ -71,52 +70,30 @@ class AStarControllerNode(Node):
             dist = math.sqrt((robot_x-wpt_x)**2 + (robot_y-wpt_y)**2)
             yaw_req = math.atan2(wpt_y-robot_y, wpt_x-robot_x)
             e = yaw_req - yaw
+
             if dist>0.15:
-            # if (abs(wpt_y - robot_y) > 0.01 and abs(wpt_x - robot_x) > 0.01):
-                self.velocity_msg.angular.z = 0.35*e
+                self.velocity_msg.angular.z = 0.4*e
                 if self.velocity_msg.angular.z > 1.82:
                     self.velocity_msg.angular.z = 1.82
                 elif self.velocity_msg.angular.z < -1.82:
                     self.velocity_msg.angular.z = -1.82
 
                 self.velocity_msg.linear.x = (2*math.pi*max_rpm/60)*33/1000
-                # self.velocity_msg.linear.x = 0.25*dist
-                # if self.velocity_msg.linear.x > (2*math.pi*max_rpm/60)*33/1000:
-                #     self.velocity_msg.linear.x = (2*math.pi*max_rpm/60)*33/1000
-
                 self.cmd_vel_pub.publish(self.velocity_msg)
-                # self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
             else:
                 self.get_logger().info('Next Waypoint: %s %s' % (self.waypoints[self.i][0], self.waypoints[self.i][1]))
                 self.i += 1
 
 
-        
-        
-
-    # def velocity_publisher(self):
-    #     pass
-
-        
-        # self.velocity_msg.linear.x = action[0]/100  # Linear velocity (m/s)
-        # self.velocity_msg.angular.z = action[1]  # Angular velocity (rad/s)
-        
-        # # Publish velocity
-        # self.cmd_vel_pub.publish(self.velocity_msg)
-        # self.get_logger().info('Publishing velocity: Linear=%.2f, Angular=%.2f' % (self.velocity_msg.linear.x, self.velocity_msg.angular.z))
-        
-
-
     def a_star_solver(self):
+        
         obstacle_set = set()             # set to store the obstacle points
         obstacle_list = []               # list to store the obstacle points in order for videp
-
         c2c_node_grid = [[float('inf')] * 200 for _ in range(600)]       # create a 2D array for storing cost to come
         tc_node_grid = [[float('inf')] * 200 for _ in range(600)]        # create a 2D array for storing cost to come
         closed_set = set()               # set to store the value of visited and closed points                 
         closed_list = []
         visited={}
-        self.get_logger().info('My parameter value: %s' % self.x_goal)
 
         # All units are in cm
         R = 66/20                                                  # Robot wheel radius
@@ -131,8 +108,6 @@ class AStarControllerNode(Node):
 
         node=(0, 0, 1, [], (self.x_start, self.y_start), 0)
         initial_node = (0, 0, 1, [], (self.x_start, self.y_start), theta_start, [])       # create the initial node
-
-        
 
         '''
         Loop to define the obstacle points in the map
@@ -181,8 +156,20 @@ class AStarControllerNode(Node):
 
         min_rpm = min(self.rpm1, self.rpm2)
 
+        valid_goal = False
+
+        while not valid_goal:
+            goal = input("Enter the goal coordinates as (x, y) in  mm: ")                         # get the start coordinate and orientaion from the user
+            [self.x_goal, self.y_goal] = [int(i) for i in goal.split()]
+            self.x_goal = int(self.x_goal/10) + 50
+            self.y_goal = int(self.y_goal/10) + 100
+            print(self.x_goal, self.y_goal)
+            if (self.x_goal, self.y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
+                self.get_logger().error("Invalid coordinates, Enter again")                        # print error message
+            else:                                        
+                valid_goal = True                                                  # set the flag to true
+
         self.t = round(((t_max - t_min)*(min_rpm - 75)/(5 - 75)) + t_min, 2)                     # Calculate time step
-        self.get_logger().info('Calculated time step : %s' % self.t)
 
         def visited_node(node):
             visited.update({node[2]:node[4]})
@@ -194,9 +181,6 @@ class AStarControllerNode(Node):
             new_heading = (node[5] + (np.rad2deg(theta_dot)*self.t)) % 360        # get the current heading of the robot
             x_vel = (R/2)*(ur+ul)*np.cos(np.deg2rad(new_heading))
             y_vel = (R/2)*(ur+ul)*np.sin(np.deg2rad(new_heading))
-            v_dot = math.sqrt(x_vel**2 + y_vel**2)
-            # print("X vel: ", x_vel)
-            # print("Y vel: ", y_vel)
             x = node[4][0] + x_vel*self.t # calculate the new x coordinate
             y = node[4][1] + y_vel*self.t # calculate the new y coordinate
             x = round(x) 
@@ -224,7 +208,7 @@ class AStarControllerNode(Node):
 
             node_dist = math.sqrt((node[4][0]-self.x_goal)**2 + (node[4][1]-self.y_goal)**2)     # calculate the distance between the current node and goal node
             if node_dist < 5:    # if the node is goal position, exit the loop
-                print("Goal reached")
+                self.get_logger().info("Path Successfully Calculated, Moving the robot ...")
                 break
 
             for action_set in action_lists:
@@ -244,20 +228,14 @@ class AStarControllerNode(Node):
                     except:
                         pass
 
-        print(len(node[3]))
         path = node[3]
-        # self.step_size = int(len(node[3])/7)
         self.waypoints = []
-        print("Actual goal reached :",(node[4][0]-50)*10, (node[4][1]-100)*10)
         for index in path:                                                        # loop to mark the path
             coord=visited[index]                                                  # get the coordinates of the node
             x = (coord[0]-50)/100
             y = (coord[1]-100)/100
             self.waypoints.append((x, y))
-        # self.waypoints.append((self.x_goal/100, self.y_goal/100))
-        print("Waypoints: ",self.waypoints)
-
-        
+        self.waypoints.append(((self.x_goal-50)/100, (self.y_goal-100)/100))        
 
 
 
