@@ -19,7 +19,9 @@
     cd YOUR_DIRECTORY
     ```
 2. The package has two folders Part01 and Part02
+
    To run Part01:
+
     a) Run the following command:
     ```
     python proj3p2_FNU_aryan_keyur.py
@@ -32,7 +34,9 @@
 
     ```
     c) After completion, open your folder. There would be a simulation video titled `new_output.mp4`.
+
     To run Part02:
+    
     a) Open your ROS Workspace and place the Part02 folder in your src directory.
     ```
     cd YOUR_ROS_WORKSPACE
