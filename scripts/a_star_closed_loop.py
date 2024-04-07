@@ -4,15 +4,10 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
-import sys
-import select
-import tty
-import termios
 from pynput import keyboard
 import numpy as np
 import heapq as hq
 import math
-import time
 
 # Define key codes
 
@@ -200,7 +195,7 @@ class AStarControllerNode(Node):
 
         while(open_list):
             node = hq.heappop(open_list)       # pop the node with lowest cost to come
-            closed_list.append(node[4])            # add the node coordinates to closed set
+            closed_list.append(node[4])        # add the node coordinates to closed set
             closed_set.add(node[4])
             visited_node(node)                 # add the node to the visited list
             index = node[2]                    # store the index of the current node
