@@ -158,7 +158,6 @@ class AStarControllerNode(Node):
             [self.x_goal, self.y_goal] = [int(i) for i in goal.split()]
             self.x_goal = int(self.x_goal/10) + 50
             self.y_goal = int(self.y_goal/10) + 100
-            print(self.x_goal, self.y_goal)
             if (self.x_goal, self.y_goal) in obstacle_set:                                   # check if the goal point is in the obstacle set
                 self.get_logger().error("Invalid coordinates, Enter again")                        # print error message
             else:                                        

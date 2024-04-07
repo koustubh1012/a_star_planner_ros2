@@ -80,11 +80,6 @@ install(PROGRAMS
 )
 
 install(PROGRAMS 
-  scripts/a_star_controller.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(PROGRAMS 
   scripts/a_star_closed_loop.py
   DESTINATION lib/${PROJECT_NAME}
 )
